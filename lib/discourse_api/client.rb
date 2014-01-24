@@ -6,6 +6,7 @@ require 'discourse_api/api/categories'
 require 'discourse_api/api/search'
 require 'discourse_api/api/topics'
 require 'discourse_api/api/users'
+require 'discourse_api/api/admin'
 
 module DiscourseApi
   class Client
@@ -16,6 +17,7 @@ module DiscourseApi
     include DiscourseApi::API::Search
     include DiscourseApi::API::Topics
     include DiscourseApi::API::Users
+    include DiscourseApi::API::Admin
 
     def initialize(host, api_key=nil, api_username=nil)
       @host = host
@@ -28,7 +30,7 @@ module DiscourseApi
           url: @host,
           headers: {
               accept: 'application/json',
-              user_agent: user_agent,
+              user_agent: user_agent
           }
       }
     end
@@ -67,6 +69,8 @@ module DiscourseApi
     end
 
     def request(method, path, params={})
+      params.merge!(api_username: @api_username, api_key: @api_key) if @api_username && @api_key
+
       response = connection.send(method.to_sym, path, params)
       response.env
     rescue Faraday::Error::ClientError, JSON::ParserError

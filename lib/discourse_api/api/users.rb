@@ -5,8 +5,8 @@ module DiscourseApi
         put("/users/#{username}/preferences/avatar/toggle", { use_uploaded_avatar: use_uploaded_avatar })
       end
 
-      def user(username, *args)
-        response = get("/user/#{username}.json", args)
+      def user(username, params={})
+        response = get("/user/#{username}.json", params)
         response[:body]['user']
       end
 
@@ -18,8 +18,8 @@ module DiscourseApi
         put("/users/#{username}/preferences/email", { email: email })
       end
 
-      def update_user(username, *args)
-        put("/users/#{username}", args)
+      def update_user(username, params={})
+        put("/users/#{username}", params)
       end
 
       def update_username(username, new_username)

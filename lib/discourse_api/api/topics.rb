@@ -1,8 +1,8 @@
 module DiscourseApi
   module API
     module Topics
-      def hot_topics(*args)
-        response = get('/hot.json', args)
+      def hot_topics(params={})
+        response = get('/hot.json', params)
         response[:body]['topic_list']['topics']
       end
 
@@ -11,23 +11,23 @@ module DiscourseApi
         post "/t/#{topic_id}/invite.json", params
       end
 
-      def latest_topics(*args)
-        response = get('/latest.json', args)
+      def latest_topics(params={})
+        response = get('/latest.json', params)
         response[:body]['topic_list']['topics']
       end
 
-      def new_topics(*args)
-        response = get("/new.json", args)
+      def new_topics(params={})
+        response = get("/new.json", params)
         response[:body]['topic_list']['topics']
       end
 
-      def topic(id, *args)
-        response = get("/t/#{id}.json", args)
+      def topic(id, params={})
+        response = get("/t/#{id}.json", params)
         response[:body]
       end
 
-      def topics_by(username, *args)
-        response = get("/topics/created-by/#{username}.json", args)
+      def topics_by(username, params={})
+        response = get("/topics/created-by/#{username}.json", params)
         response[:body]['topic_list']['topics']
       end
     end
