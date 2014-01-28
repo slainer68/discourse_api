@@ -11,7 +11,7 @@ module DiscourseApi
       end
 
       def update_avatar(username, file)
-        put("/users/#{username}/preferences/avatar", { file: file })
+        post("/users/#{username}/preferences/avatar", { file: file })
       end
 
       def update_email(username, email)
